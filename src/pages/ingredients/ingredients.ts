@@ -38,4 +38,8 @@ export class IngredientsPage {
   removeIngredient( ingredient ) {
     this.ingredients.splice( this.ingredients.indexOf(ingredient), 1 );
   }
+
+  f( event) {
+    console.log(event);
+  }
 }

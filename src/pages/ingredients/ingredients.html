@@ -9,8 +9,9 @@
 <ion-content padding>
   <ion-list>
     <div ion-item *ngFor="let ingredient of ingredients">
-      {{ ingredient.product }} ... {{ ingredient.quantity }} ....... <button (click) = "removeIngredient( ingredient )">Delete</button>
-      </div>
+      {{ ingredient.product }} ... {{ ingredient.quantity }} ....... <button (click) = "removeIngredient( ingredient )">Delete</button> <button (click) = "ingredient.edit = !ingredient.edit">Edit</button>
+      <div [hidden] = "ingredient.edit">Hejsan</div>
+    </div>
   </ion-list>
 
   <div>
