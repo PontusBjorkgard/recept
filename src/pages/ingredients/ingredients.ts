@@ -7,7 +7,7 @@ import { NavController } from 'ionic-angular';
 })
 export class IngredientsPage {
 
-  ingredients: Array<{ product: string, quantity: int }>;
+  ingredients: Array<{ product: string, quantity: number }>;
 
   constructor(public navCtrl: NavController) {
     this.ingredients = [];
@@ -33,5 +33,9 @@ export class IngredientsPage {
 
     product.value = null;
     quantity.value = null;
+  }
+
+  removeIngredient( ingredient ) {
+    this.ingredients.splice( this.ingredients.indexOf(ingredient), 1 );
   }
 }
