@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      About
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <div ion-item *ngFor="let ingredient of ingredients">
+      {{ ingredient.product }} ... {{ ingredient.quantity }}
+      </div>
+  </ion-list>
+
+  <div>
+    <ion-input #product type="text" placeholder = "product"></ion-input>
+    <ion-input #quantity type="number" placeholder = "quantity"></ion-input>
+    <button ion-button (click) = "addIngredient(product, quantity)">Add ingredient</button>
+  </div>
+</ion-content>
