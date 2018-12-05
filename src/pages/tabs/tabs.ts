@@ -9,6 +9,9 @@ import { RecipesPage } from '../recipes/recipes';
 })
 export class TabsPage {
 
+  shoppingList = 'snopping list haha';
+  inventoryList = 'kakka listan haha';
+
   tab1Root = RecipesPage;
   tab2Root = IngredientsPage;
   tab3Root = ContactPage;

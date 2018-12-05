@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-ingredients',
@@ -7,11 +7,15 @@ import { NavController } from 'ionic-angular';
 })
 export class IngredientsPage {
 
+  listType: string;
   ingredients: Array<{ product: string, quantity: number }>;
 
-  constructor(public navCtrl: NavController) {
+
+  constructor(public navCtrl: NavController, navParams: NavParams) {
+    this.listType = navParams.data;
     this.ingredients = [];
   }
+
 
   addIngredient( product, quantity) {
 
@@ -35,11 +39,9 @@ export class IngredientsPage {
     quantity.value = null;
   }
 
+
   removeIngredient( ingredient ) {
     this.ingredients.splice( this.ingredients.indexOf(ingredient), 1 );
   }
 
-  f( event) {
-    console.log(event);
-  }
 }
