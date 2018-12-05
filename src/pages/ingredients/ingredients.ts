@@ -7,7 +7,7 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class IngredientsPage {
 
-  listType: string;
+  listType: any;
   ingredients: Array<{ product: string, quantity: number }>;
 
 
@@ -42,6 +42,13 @@ export class IngredientsPage {
 
   removeIngredient( ingredient ) {
     this.ingredients.splice( this.ingredients.indexOf(ingredient), 1 );
+  }
+
+  updateIngredient( ingredient, product, quantity ) {
+    ingredient.product = product.value;
+    ingredient.quantity = quantity.value;
+
+    ingredient.edit = false;
   }
 
 }

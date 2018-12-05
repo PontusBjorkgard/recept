@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      {{ listType.title }}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,14 +9,23 @@
 <ion-content padding>
   <ion-list>
     <div ion-item *ngFor="let ingredient of ingredients">
-      {{ ingredient.product }} ... {{ ingredient.quantity }} ....... <button (click) = "removeIngredient( ingredient )">Delete</button> <button (click) = "ingredient.edit = !ingredient.edit">Edit</button>
-      <div [hidden] = "ingredient.edit">Hejsan</div>
+
+      <div [hidden] = "ingredient.edit">
+        {{ ingredient.product }} ... {{ ingredient.quantity }} ....... <button (click) = "removeIngredient( ingredient )">Delete</button><button (click) = "ingredient.edit = !ingredient.edit">Edit</button>
+      </div>
+
+      <div [hidden] = "!ingredient.edit">
+        <input #updatedProduct [value] = "ingredient.product">
+        <input #updatedQuantity [value] = "ingredient.quantity">
+        <button (click) = "updateIngredient(ingredient, updatedProduct, updatedQuantity)">Update</button>
+      </div>
+
     </div>
   </ion-list>
 
   <div>
     <ion-input #product type="text" placeholder = "product"></ion-input>
     <ion-input #quantity type="number" placeholder = "quantity"></ion-input>
-    <button ion-button (click) = "addIngredient(product, quantity)">Add ingredient</button>
+    <button ion-button (click) = "addIngredient(product, quantity)">Add</button>
   </div>
 </ion-content>
