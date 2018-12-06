@@ -9,22 +9,16 @@ import { RecipesPage } from '../recipes/recipes';
 })
 export class TabsPage {
 
-  inventoryList = {
-    title: 'Inventory',
-    id: 'inventory'
-  }
-  
-  shoppingList = {
-    title: 'Shopping list',
-    id: 'shopping'
-  }
+  constructor() {
 
+  }
 
   tab1Root = RecipesPage;
   tab2Root = IngredientsPage;
   tab3Root = ContactPage;
 
-  constructor() {
+
+  trans() {
 
   }
 }

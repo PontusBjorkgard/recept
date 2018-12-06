@@ -51,4 +51,9 @@ export class IngredientsPage {
     ingredient.edit = false;
   }
 
+
+  transferIngredients() {
+    
+  }
+
 }
