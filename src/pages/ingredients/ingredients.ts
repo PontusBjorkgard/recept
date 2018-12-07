@@ -52,7 +52,7 @@ export class IngredientsPage {
 
   removeIngredient( ingredient ) {
     this.ingredients.splice( this.ingredients.indexOf(ingredient), 1 );
-    
+
     this.storage.set( this.listType.id, this.ingredients );
   }
 
@@ -66,8 +66,11 @@ export class IngredientsPage {
   }
 
 
-  transferIngredients() {
+  focus( a) {
+    setTimeout( () => {
+      a.setFocus();
+    }, 50)
 
-  }
+ }
 
 }

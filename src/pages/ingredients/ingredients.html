@@ -8,25 +8,33 @@
 
 <ion-content padding>
   <ion-list>
-    <div ion-item *ngFor="let ingredient of ingredients">
-
-      <div [hidden] = "ingredient.edit">
-        {{ ingredient.product }} ... {{ ingredient.quantity }} ....... <button (click) = "removeIngredient( ingredient )">Delete</button><button (click) = "ingredient.edit = !ingredient.edit">Edit</button>
-      </div>
-
-      <div [hidden] = "!ingredient.edit">
-        <input #updatedProduct [value] = "ingredient.product">
-        <input #updatedQuantity [value] = "ingredient.quantity">
-        <button (click) = "updateIngredient(ingredient, updatedProduct, updatedQuantity)">Update</button>
-      </div>
-
-    </div>
+    <ion-grid *ngFor="let ingredient of ingredients">
+        <ion-row [hidden] = "ingredient.edit" (click) = "ingredient.edit = !ingredient.edit; focus(updatedProduct)">
+            <ion-col col-6>{{ ingredient.product }}</ion-col>
+            <ion-col col-3>{{ ingredient.quantity }}</ion-col>
+            <ion-col col-3><ion-icon (click) = "removeIngredient( ingredient )" name="trash"></ion-icon></ion-col>
+        </ion-row>
+        <ion-row [hidden] = "!ingredient.edit">
+            <ion-col col-6><ion-input #updatedProduct  type="text"   [value] = "ingredient.product"></ion-input></ion-col>
+            <ion-col col-3><ion-input #updatedQuantity type="number" [value] = "ingredient.quantity"></ion-input></ion-col>
+            <ion-col col-3><button (click) = "updateIngredient(ingredient, updatedProduct, updatedQuantity)">Update</button></ion-col>
+        </ion-row>
+    </ion-grid>
   </ion-list>
 
   <div>
-    <ion-input #product type="text" placeholder = "product"></ion-input>
-    <ion-input #quantity type="number" placeholder = "quantity"></ion-input>
-    <button ion-button (click) = "addIngredient(product, quantity)">Add</button>
-    <button ion-button (click) = "transferIngredients()">Chweck</button>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-input #product type="text" placeholder = "product"></ion-input>
+        </ion-col>
+        <ion-col col-3>
+          <ion-input #quantity type="number" placeholder = "quantity"></ion-input>
+        </ion-col>
+        <ion-col col-3>
+          <button ion-button (click) = "addIngredient(product, quantity)">Add</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>
