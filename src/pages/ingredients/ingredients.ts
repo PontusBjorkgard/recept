@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -12,7 +12,7 @@ export class IngredientsPage {
   ingredients: Array<{ product: string, quantity: number }>;
   storage: Storage;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, public store: Storage) {
+  constructor(public navCtrl: NavController, navParams: NavParams, public store: Storage, public events: Events) {
     this.listType = navParams.data;
     this.ingredients = [];
     this.storage = store;
@@ -20,8 +20,21 @@ export class IngredientsPage {
       if (val != null) {
         this.ingredients = val;
       }
-
     });
+
+    if( this.listType.id == 'inventory') {
+      console.log('in inventory');
+      events.subscribe('transfered', (what) => {
+        this.storage.get(this.listType.id).then( (val) => {
+          console.log(val);
+          if (val != null) {
+            this.ingredients = val;
+          }
+          console.log(what)
+        });
+      });
+    }
+
   }
 
 
@@ -66,11 +79,25 @@ export class IngredientsPage {
   }
 
 
-  focus( a) {
+  focus( field ) {
     setTimeout( () => {
-      a.setFocus();
+      field.setFocus();
     }, 50)
+  }
 
- }
+  transferIngredient( ingredient ) {
+
+    this.storage.get('inventory').then( (val) => {
+
+        val.push(
+          {product: ingredient.product, quantity: ingredient.quantity}
+        );
+        this.storage.set('inventory', val);
+        
+    });
+    this.events.publish('transfered', 'what');
+    this.removeIngredient( ingredient );
+
+  }
 
 }
