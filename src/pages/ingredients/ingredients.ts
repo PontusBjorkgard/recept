@@ -23,15 +23,11 @@ export class IngredientsPage {
     });
 
     if( this.listType.id == 'inventory') {
-      console.log('in inventory');
-      events.subscribe('transfered', (what) => {
-        this.storage.get(this.listType.id).then( (val) => {
-          console.log(val);
-          if (val != null) {
-            this.ingredients = val;
-          }
-          console.log(what)
-        });
+      events.subscribe('transfered', (ingredient) => {
+        this.ingredients.push(
+          { product: ingredient.product, quantity: ingredient.quantity }
+        );
+        this.storage.set( this.listType.id, this.ingredients );
       });
     }
 
@@ -86,18 +82,8 @@ export class IngredientsPage {
   }
 
   transferIngredient( ingredient ) {
-
-    this.storage.get('inventory').then( (val) => {
-
-        val.push(
-          {product: ingredient.product, quantity: ingredient.quantity}
-        );
-        this.storage.set('inventory', val);
-        
-    });
-    this.events.publish('transfered', 'what');
+    this.events.publish('transfered', ingredient);
     this.removeIngredient( ingredient );
-
   }
 
 }
