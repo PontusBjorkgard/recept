@@ -17,8 +17,4 @@ export class TabsPage {
   tab2Root = IngredientsPage;
   tab3Root = ContactPage;
 
-
-  trans() {
-
-  }
 }

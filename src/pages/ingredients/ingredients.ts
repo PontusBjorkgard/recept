@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+
 @Component({
   selector: 'page-ingredients',
   templateUrl: 'ingredients.html'
