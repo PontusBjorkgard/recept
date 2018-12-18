@@ -11,26 +11,11 @@ export class IngredientsPage {
 
   listType: any;
   ingredients: Array<{ product: string, quantity: number }>;
-  storage: Storage;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, public store: Storage, public events: Events) {
+  constructor(public navCtrl: NavController, navParams: NavParams, public storage: Storage, public events: Events) {
+
     this.listType = navParams.data;
-    this.ingredients = [];
-    this.storage = store;
-    this.storage.get(this.listType.id).then( (val) => {
-      if (val != null) {
-        this.ingredients = val;
-      }
-    });
-
-    if( this.listType.id == 'inventory') {
-      events.subscribe('transfered', (ingredient) => {
-        this.ingredients.push(
-          { product: ingredient.product, quantity: ingredient.quantity }
-        );
-        this.storage.set( this.listType.id, this.ingredients );
-      });
-    }
+    this.ingredients = navParams.data.list;
 
   }
 
@@ -62,7 +47,6 @@ export class IngredientsPage {
 
   removeIngredient( ingredient ) {
     this.ingredients.splice( this.ingredients.indexOf(ingredient), 1 );
-
     this.storage.set( this.listType.id, this.ingredients );
   }
 
@@ -84,7 +68,6 @@ export class IngredientsPage {
 
   transferIngredient( ingredient ) {
     this.events.publish('transfered', ingredient);
-    this.removeIngredient( ingredient );
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RecipePage } from '../recipe/recipe';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-recipes',
@@ -9,17 +10,21 @@ import { RecipePage } from '../recipe/recipe';
 export class RecipesPage {
 
   recipes: Array<{title: string, ingredients: Array<{product: string, quantity: number }>}>;
-  constructor(public navCtrl: NavController) {
+
+  inventory: Array<{ product: string, quantity: number }>;
+  shopping: Array<{ product: string, quantity: number }>;
+
+  constructor(public navCtrl: NavController, public storage: Storage ) {
     this.recipes = [
       {
         title: 'Recept',
         ingredients: [
           {
-          product: 'Kakka',
+          product: 'Ingrediens1',
           quantity: 2
         },
         {
-        product: 'Piss',
+        product: 'Ingrediens2',
         quantity: 1
         }
       ]
@@ -28,11 +33,11 @@ export class RecipesPage {
       title: 'Recept 2',
       ingredients: [
         {
-        product: 'Pens',
+        product: 'Ingrediens3',
         quantity: 2
       },
       {
-      product: 'Kok',
+      product: 'Ingrediens1',
       quantity: 1
       }
     ]
@@ -41,7 +46,22 @@ export class RecipesPage {
   }
 
   showIngredients( recipe ) {
-    this.navCtrl.push( RecipePage, recipe );
+    this.storage.get('inventory').then( (val) => {
+      if (val != null) {
+        this.inventory = val;
+      }
+      this.storage.get('shopping').then( (val) => {
+        if (val != null) {
+          this.shopping = val;
+        }
+        let data = {
+          recipe: recipe,
+          inventory: this.inventory,
+          shopping: this.shopping
+        }
+        this.navCtrl.push( RecipePage, data );
+      });
+    });  
   }
 
 }

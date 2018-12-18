@@ -7,7 +7,7 @@
 <ion-content padding>
   <ion-list>
     <ion-grid *ngFor="let ingredient of recipe.ingredients">
-      <ion-row [ngStyle] = "{background: c(ingredient)}">
+      <ion-row>
         <ion-col> {{ingredient.product}} </ion-col>
         <ion-col> {{ingredient.quantity}} </ion-col>
       </ion-row>
