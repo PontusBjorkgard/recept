@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { RecipePage } from '../recipe/recipe';
 import { Storage } from '@ionic/storage';
 
@@ -14,7 +14,7 @@ export class RecipesPage {
   inventory: Array<{ product: string, quantity: number }>;
   shopping: Array<{ product: string, quantity: number }>;
 
-  constructor(public navCtrl: NavController, public storage: Storage ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage ) {
     this.recipes = [
       {
         title: 'Recept',
@@ -42,26 +42,25 @@ export class RecipesPage {
       }
     ]
   },
-  ]
+];
+
+
+  this.inventory = navParams.data.inventory;
+  this.shopping = navParams.data.shopping;
+  console.log(navParams.data);
+
+
+
+
   }
 
   showIngredients( recipe ) {
-    this.storage.get('inventory').then( (val) => {
-      if (val != null) {
-        this.inventory = val;
-      }
-      this.storage.get('shopping').then( (val) => {
-        if (val != null) {
-          this.shopping = val;
-        }
-        let data = {
-          recipe: recipe,
-          inventory: this.inventory,
-          shopping: this.shopping
-        }
-        this.navCtrl.push( RecipePage, data );
-      });
-    });  
+    let data = {
+      recipe: recipe,
+      inventory: this.inventory,
+      shopping: this.shopping
+    };
+    this.navCtrl.push( RecipePage, data );
   }
 
 }

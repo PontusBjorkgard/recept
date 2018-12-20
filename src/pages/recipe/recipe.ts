@@ -14,8 +14,10 @@ export class RecipePage {
   shopping: Array<{ product: string, quantity: number }>;
 
   constructor( public navCtrl: NavController, public navParams: NavParams, public storage: Storage ) {
-    this.recipe = navParams.data.recipe;
-    this.inventory = navParams.data.inventory;
-    this.shopping = navParams.data.shopping;
+    // this.recipe = navParams.data.recipe;
+    // this.inventory = navParams.data.inventory;
+    // this.shopping = navParams.data.shopping;
+
+    console.log( navParams.data );
   }
 }
