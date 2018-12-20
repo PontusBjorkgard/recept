@@ -24,8 +24,9 @@ export class MyApp {
 
       let inventoryData = this.storage.get('inventory');
       let shoppingData = this.storage.get('shopping');
+      let recipesData = this.storage.get('recipes');
 
-      Promise.all([inventoryData,shoppingData]).then( ( values ) => {
+      Promise.all([inventoryData,shoppingData, recipesData]).then( ( values ) => {
         this.nav.push(TabsPage, values);
       });
 

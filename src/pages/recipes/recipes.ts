@@ -9,45 +9,30 @@ import { Storage } from '@ionic/storage';
 })
 export class RecipesPage {
 
-  recipes: Array<{title: string, ingredients: Array<{product: string, quantity: number }>}>;
+  recipes: Array<{title: string, ingredients: Array<{product: string, quantity: number }>, instructions: string[]}>;
 
   inventoryList: Array<{ product: string, quantity: number }>;
   shoppingList: Array<{ product: string, quantity: number }>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage ) {
-    this.recipes = [
-      {
-        title: 'Recept',
-        ingredients: [
-          {
-          product: 'Ingrediens1',
-          quantity: 2
-        },
-        {
-        product: 'Ingrediens2',
-        quantity: 1
-        }
-      ]
-    },
-    {
-      title: 'Recept 2',
-      ingredients: [
-        {
-        product: 'Ingrediens3',
-        quantity: 2
-      },
-      {
-      product: 'Ingrediens1',
-      quantity: 1
-      }
-    ]
-  },
-];
 
 
+  this.recipes = navParams.data.recipes;
   this.inventoryList = navParams.data.inventory;
   this.shoppingList = navParams.data.shopping;
 
+  }
+
+  addRecipe( recipe ) {
+    this.recipes.push({
+      title: recipe.value,
+      ingredients: [{}],
+      instructions: []
+    });
+    recipe.value = null;
+
+    this.storage.set('recipes', this.recipes);
+    this.showIngredients( this.recipes[ this.recipes.length -1] );
   }
 
   showIngredients( recipe ) {

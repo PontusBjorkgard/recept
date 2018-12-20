@@ -13,11 +13,13 @@ export class TabsPage {
 
   inventoryList: any;
   shoppingList: any;
-  recipeList: any;
+  recipesList: any;
 
   constructor( public navParams: NavParams, public events: Events, public storage: Storage ) {
+
     this.inventoryList = navParams.data[0];
     this.shoppingList = navParams.data[1];
+    this.recipesList = navParams.data[2];
 
     events.subscribe('transfered', (ingredient) => {
 

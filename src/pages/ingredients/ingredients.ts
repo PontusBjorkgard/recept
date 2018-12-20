@@ -42,12 +42,18 @@ export class IngredientsPage {
     this.storage.set( this.listType.id, this.ingredients );
     product.value = null;
     quantity.value = null;
+
+    // recipe.ts lyssnar på ändringar i inventory / shopping
+    this.events.publish('listChange');
   }
 
 
   removeIngredient( ingredient ) {
     this.ingredients.splice( this.ingredients.indexOf(ingredient), 1 );
     this.storage.set( this.listType.id, this.ingredients );
+
+    // recipe.ts lyssnar på ändringar i inventory / shopping
+    this.events.publish('listChange');
   }
 
   updateIngredient( ingredient, product, quantity ) {
@@ -57,6 +63,9 @@ export class IngredientsPage {
     ingredient.edit = false;
 
     this.storage.set( this.listType.id, this.ingredients );
+
+    // recipe.ts lyssnar på ändringar i inventory / shopping
+    this.events.publish('listChange');
   }
 
 
@@ -68,6 +77,9 @@ export class IngredientsPage {
 
   transferIngredient( ingredient ) {
     this.events.publish('transfered', ingredient);
+
+    // recipe.ts lyssnar på ändringar i inventory / shopping
+    this.events.publish('listChange');
   }
 
 }
