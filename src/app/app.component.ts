@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Platform, Events, NavController } from 'ionic-angular';
+import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -17,7 +17,7 @@ export class MyApp {
   shoppingList: any;
   recipeList: any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public storage: Storage, public events: Events) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public storage: Storage) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -29,21 +29,6 @@ export class MyApp {
         this.nav.push(TabsPage, values);
       });
 
-      events.subscribe('transfered', (ingredient) => {
-
-        this.inventoryList.push(
-          { product: ingredient.product, quantity: ingredient.quantity }
-        );
-
-        setTimeout( () => {
-          this.shoppingList.splice( this.shoppingList.indexOf(ingredient), 1 )
-
-          this.storage.set( 'inventory', this.inventoryList);
-          this.storage.set( 'shopping', this.shoppingList);
-        }, 400 );
-
-
-      });
     });
   }
 }

@@ -10,14 +10,22 @@ export class RecipePage {
 
   recipe: {title: string, ingredients: Array <{ product: string, quantity: number }>};
 
-  inventory: Array<{ product: string, quantity: number }>;
-  shopping: Array<{ product: string, quantity: number }>;
+  inventoryList: Array<{ product: string, quantity: number }>;
+  shoppingList: Array<{ product: string, quantity: number }>;
 
   constructor( public navCtrl: NavController, public navParams: NavParams, public storage: Storage ) {
-    // this.recipe = navParams.data.recipe;
-    // this.inventory = navParams.data.inventory;
-    // this.shopping = navParams.data.shopping;
+     this.recipe = navParams.data.recipe;
+     this.inventoryList = navParams.data.inventory;
+     this.shoppingList = navParams.data.shopping;
 
-    console.log( navParams.data );
+     this.recipe.ingredients.forEach( (ingredient) => {
+       this.inventoryList.forEach( (inventoryItem) => {
+         if ( ingredient.product === inventoryItem.product ) {
+           ingredient.color = ( ingredient.quantity < inventoryItem.quantity ) ? 'green':'red';
+         }
+       });
+     });
+
+    console.log( this.recipe.ingredients );
   }
 }

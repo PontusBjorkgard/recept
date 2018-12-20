@@ -15,10 +15,23 @@ export class TabsPage {
   shoppingList: any;
   recipeList: any;
 
-  constructor( public navParams: NavParams ) {
-    console.log(navParams.data)
+  constructor( public navParams: NavParams, public events: Events, public storage: Storage ) {
     this.inventoryList = navParams.data[0];
     this.shoppingList = navParams.data[1];
+
+    events.subscribe('transfered', (ingredient) => {
+
+      this.inventoryList.push(
+        { product: ingredient.product, quantity: ingredient.quantity }
+      );
+
+      setTimeout( () => {
+        this.shoppingList.splice( this.shoppingList.indexOf(ingredient), 1 )
+
+        this.storage.set( 'inventory', this.inventoryList);
+        this.storage.set( 'shopping', this.shoppingList);
+      }, 400 );
+    });
   }
 
 

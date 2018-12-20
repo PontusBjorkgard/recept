@@ -11,8 +11,8 @@ export class RecipesPage {
 
   recipes: Array<{title: string, ingredients: Array<{product: string, quantity: number }>}>;
 
-  inventory: Array<{ product: string, quantity: number }>;
-  shopping: Array<{ product: string, quantity: number }>;
+  inventoryList: Array<{ product: string, quantity: number }>;
+  shoppingList: Array<{ product: string, quantity: number }>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage ) {
     this.recipes = [
@@ -45,20 +45,16 @@ export class RecipesPage {
 ];
 
 
-  this.inventory = navParams.data.inventory;
-  this.shopping = navParams.data.shopping;
-  console.log(navParams.data);
-
-
-
+  this.inventoryList = navParams.data.inventory;
+  this.shoppingList = navParams.data.shopping;
 
   }
 
   showIngredients( recipe ) {
     let data = {
       recipe: recipe,
-      inventory: this.inventory,
-      shopping: this.shopping
+      inventory: this.inventoryList,
+      shopping: this.shoppingList
     };
     this.navCtrl.push( RecipePage, data );
   }
